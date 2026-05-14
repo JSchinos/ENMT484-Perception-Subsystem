@@ -1,0 +1,24 @@
+#SSH and Launch OAK-D Camera
+ssh ubuntu@10.85.255.192
+source /opt/ros/jazzy/setup.bash
+ros2 launch turtlebot4_bringup oakd.launch.py
+
+#Launch Rviz
+source /opt/ros/jazzy/setup.bash
+source /etc/turtlebot4_discovery/setup.bash
+ros2 launch turtlebot4_viz view_robot.launch.py
+
+#Run apriltag detection
+source /opt/ros/jazzy/setup.bash
+ros2 run apriltag_ros apriltag_node --ros-args \
+-r image_rect:=/oakd/rgb/preview/image_raw \
+-r camera_info:=/oakd/rgb/preview/camera_info \
+--params-file /opt/ros/jazzy/share/apriltag_ros/cfg/tags_36h11.yaml
+
+#Run detections
+source /opt/ros/jazzy/setup.bash
+source /etc/turtlebot4_discovery/setup.bash
+ros2 topic echo /detections
+
+#launch gazebo
+ros2 launch turtlebot4_gz_bringup turtlebot4_gz.launch.py
