@@ -1,0 +1,19 @@
+Regolith Detection:
+
+First terminal Launch RealSense Camera:
+source /opt/ros/jazzy/setup.bash
+ros2 launch realsense2_camera rs_launch.py
+
+Second terminal Run Detection script:
+source /opt/ros/jazzy/setup.bash
+python3 regolith_detect.py
+
+
+Detection Pipeline:
+-HSV color thresholding
+-filtering
+-countour clustering
+-regolith pile localization
+
+Purpose:
+Used to isolate and estimate the location of regolith pile for future UR3e excavation and sweeping operations
